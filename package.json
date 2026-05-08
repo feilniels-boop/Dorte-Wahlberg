@@ -1,0 +1,15 @@
+{
+  "name": "dorte-wahlberg-site",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Static site for Dorte Wahlberg (served via Express for Railway)",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
