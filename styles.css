@@ -142,6 +142,17 @@ a:hover {
   line-height: 1.2;
 }
 
+@media (max-width: 420px) {
+  .logo {
+    font-size: 1.05rem;
+  }
+
+  .logo-img {
+    width: 36px;
+    height: 36px;
+  }
+}
+
 .logo:hover {
   color: var(--color-accent-dark);
 }
@@ -490,8 +501,186 @@ a:hover {
 }
 
 .hero-text {
-  margin: 0 0 1.75rem;
+  margin: 0 0 1.25rem;
   color: var(--color-ink-muted);
+}
+
+.hero-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin-top: 0.5rem;
+}
+
+/* Forside — troværdighed, ydelser, om, hvorfor craft */
+
+.home-section-title {
+  margin: 0 0 0.65rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.55rem, 3.2vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+}
+
+.home-section-intro {
+  margin-top: 0;
+  margin-bottom: 1.75rem;
+  max-width: 52ch;
+}
+
+.cred-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 600px) {
+  .cred-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .cred-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.15rem;
+  }
+}
+
+.cred-card {
+  height: 100%;
+  margin: 0;
+  padding: 1.2rem 1.3rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.cred-card h3 {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.cred-card p {
+  margin: 0;
+  font-size: 0.98rem;
+  color: var(--color-ink-muted);
+  line-height: 1.6;
+}
+
+.offer-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 720px) {
+  .offer-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.15rem;
+  }
+}
+
+.offer-card {
+  height: 100%;
+  margin: 0;
+  padding: 1.35rem 1.4rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.offer-card h3 {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: var(--color-accent-dark);
+}
+
+.offer-card p {
+  margin: 0;
+  font-size: 0.98rem;
+  color: var(--color-ink-muted);
+  line-height: 1.65;
+}
+
+.home-offers-foot {
+  margin: 2rem 0 0;
+  text-align: center;
+}
+
+.home-about-inner {
+  max-width: 720px;
+}
+
+.home-about-text p {
+  margin: 0 0 1rem;
+  color: var(--color-ink-muted);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.home-about-text p:last-of-type {
+  margin-bottom: 0;
+}
+
+.home-about-more {
+  margin-top: 1.25rem !important;
+  margin-bottom: 0 !important;
+}
+
+.home-about-more a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.home-about-more a:hover {
+  text-decoration: underline;
+}
+
+.home-why-inner {
+  max-width: 720px;
+}
+
+.why-craft-card {
+  margin: 0;
+  padding: 1.5rem 1.65rem;
+  background: linear-gradient(165deg, var(--color-surface) 0%, #f7f3ec 100%);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.why-craft-lead {
+  margin: 0 0 1rem;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--color-accent-dark);
+}
+
+.why-craft-card p:not(.why-craft-lead) {
+  margin: 0 0 1rem;
+  color: var(--color-ink-muted);
+  line-height: 1.7;
+}
+
+.why-craft-card p:last-child {
+  margin-bottom: 0;
 }
 
 /* Buttons */
@@ -541,7 +730,7 @@ a:hover {
 /* Sections */
 
 .section {
-  padding: clamp(3rem, 6vw, 4.5rem) 0;
+  padding: clamp(3.25rem, 7vw, 5.25rem) 0;
 }
 
 .section-alt {
