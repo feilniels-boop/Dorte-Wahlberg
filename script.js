@@ -49,9 +49,53 @@
 
   window.DWInitNav = bindNav;
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", bindNav);
-  } else {
+  function initReveal() {
+    if (!("IntersectionObserver" in window)) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    document
+      .querySelectorAll(
+        ".cred-grid, .offer-grid, .partner-grid, .blog-grid, .gallery-grid"
+      )
+      .forEach(function (el) {
+        el.classList.add("reveal-stagger");
+      });
+
+    document
+      .querySelectorAll(
+        ".home-section-title, .section-lead, .hero-copy, .why-craft-card, .quote-card, " +
+          ".home-about-text, .activity-card, .contact-card, .highlight-card, " +
+          ".om-feature-photo, .dream-card, .poem, .home-partners-foot, .home-offers-foot"
+      )
+      .forEach(function (el) {
+        el.classList.add("reveal");
+      });
+
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+    );
+
+    document.querySelectorAll(".reveal, .reveal-stagger").forEach(function (t) {
+      io.observe(t);
+    });
+  }
+
+  function init() {
     bindNav();
+    initReveal();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
   }
 })();

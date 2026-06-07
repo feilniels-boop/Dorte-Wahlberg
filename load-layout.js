@@ -15,6 +15,11 @@
     return p;
   }
 
+  function setFooterYear() {
+    var el = document.getElementById("footer-year");
+    if (el) el.textContent = String(new Date().getFullYear());
+  }
+
   function markCurrentPage() {
     var file = currentFile();
     var nav = document.getElementById("site-nav");
@@ -36,7 +41,7 @@
       "Åbn siden via en lokal server (fx <code>python3 -m http.server</code> i projektmappen), " +
       "så menu og bundtekst kan indlæses.</p>";
     footerRoot.innerHTML =
-      '<footer class="site-footer"><div class="wrap footer-inner"><p class="footer-copy">Designet af Elegant Themes | Støttet af WordPress</p></div></footer>';
+      '<footer class="site-footer"><div class="wrap footer-bottom"><p class="footer-copy">© Dorte Wahlberg Feil</p></div></footer>';
   }
 
   function inject() {
@@ -60,6 +65,7 @@
         headerRoot.outerHTML = parts[0];
         footerRoot.outerHTML = parts[1];
         markCurrentPage();
+        setFooterYear();
         if (typeof window.DWInitNav === "function") window.DWInitNav();
       })
       .catch(function () {

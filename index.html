@@ -23,7 +23,10 @@
 
     <main id="main">
       <section class="hero" id="hero">
-        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="hero-bg" aria-hidden="true">
+          <div class="hero-shader" id="hero-shader"></div>
+          <div class="hero-veil"></div>
+        </div>
         <div class="wrap hero-layout">
           <div class="hero-copy">
             <p class="hero-kicker">Craft psykologi · psykomotorisk terapi · tekstil og håndværk</p>
@@ -37,7 +40,11 @@
               bygger jeg bro mellem håndværk, psykologi og sundhedsfremmende praksis.
             </p>
             <div class="hero-cta-row">
-              <a class="btn btn-primary" href="kontakt.html">Book en uforpligtende samtale</a>
+              <a class="liquid-btn" href="kontakt.html">
+                <span class="liquid-btn__glass" aria-hidden="true"></span>
+                <span class="liquid-btn__shine" aria-hidden="true"></span>
+                <span class="liquid-btn__label">Book en uforpligtende samtale</span>
+              </a>
               <a class="btn btn-secondary" href="aktiviteter.html">Se workshops og kurser</a>
             </div>
           </div>
@@ -63,54 +70,89 @@
           </p>
           <ul class="partner-grid">
             <li>
-              <figure class="partner-tile">
-                <div class="partner-tile__frame">
-                  <!-- Logo: images/partners/kraeftens-bekaempelse.svg — tilføj img og class partner-tile--has-logo på figure -->
-                  <figcaption class="partner-tile__caption">Kræftens Bekæmpelse</figcaption>
-                </div>
-              </figure>
+              <a
+                class="partner-tile"
+                href="https://www.cancer.dk/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span class="partner-tile__frame">
+                  <!-- Logo: images/partners/kraeftens-bekaempelse.svg — tilføj img og class partner-tile--has-logo -->
+                  <span class="partner-tile__caption">Kræftens Bekæmpelse</span>
+                </span>
+              </a>
             </li>
             <li>
-              <figure class="partner-tile">
-                <div class="partner-tile__frame">
-                  <figcaption class="partner-tile__caption">Folkestedet, Aarhus</figcaption>
-                </div>
-              </figure>
+              <a
+                class="partner-tile"
+                href="https://folkestedet.aarhus.dk/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span class="partner-tile__frame">
+                  <span class="partner-tile__caption">Folkestedet, Aarhus</span>
+                </span>
+              </a>
             </li>
             <li>
-              <figure class="partner-tile">
-                <div class="partner-tile__frame">
-                  <figcaption class="partner-tile__caption">Klostergadecentret</figcaption>
-                </div>
-              </figure>
+              <a
+                class="partner-tile"
+                href="https://klostergade.dk/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span class="partner-tile__frame">
+                  <span class="partner-tile__caption">Klostergadecentret</span>
+                </span>
+              </a>
             </li>
             <li>
-              <figure class="partner-tile">
-                <div class="partner-tile__frame">
-                  <figcaption class="partner-tile__caption">Danske Hospitalsklovne</figcaption>
-                </div>
-              </figure>
+              <a
+                class="partner-tile"
+                href="https://danskehospitalsklovne.dk/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span class="partner-tile__frame">
+                  <span class="partner-tile__caption">Danske Hospitalsklovne</span>
+                </span>
+              </a>
             </li>
             <li>
-              <figure class="partner-tile">
-                <div class="partner-tile__frame">
-                  <figcaption class="partner-tile__caption">Tiny Office</figcaption>
-                </div>
-              </figure>
+              <a
+                class="partner-tile"
+                href="https://tinyoffice.dk/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span class="partner-tile__frame">
+                  <span class="partner-tile__caption">Tiny Office</span>
+                </span>
+              </a>
             </li>
             <li>
-              <figure class="partner-tile">
-                <div class="partner-tile__frame">
-                  <figcaption class="partner-tile__caption">Teater Apropos</figcaption>
-                </div>
-              </figure>
+              <a
+                class="partner-tile"
+                href="https://www.teaterietapropos.dk/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span class="partner-tile__frame">
+                  <span class="partner-tile__caption">Teater Apropos</span>
+                </span>
+              </a>
             </li>
             <li>
-              <figure class="partner-tile">
-                <div class="partner-tile__frame">
-                  <figcaption class="partner-tile__caption">Wahlberg Motion Design</figcaption>
-                </div>
-              </figure>
+              <a
+                class="partner-tile"
+                href="https://wahlberg.dk/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span class="partner-tile__frame">
+                  <span class="partner-tile__caption">Wahlberg Motion Design</span>
+                </span>
+              </a>
             </li>
           </ul>
           <p class="home-partners-foot">
@@ -264,6 +306,86 @@
     </main>
 
     <div id="site-footer-root"></div>
+
+    <!-- SVG-filter til liquid glass-knappen (brydning/forvrængning) -->
+    <svg class="liquid-glass-defs" aria-hidden="true" focusable="false">
+      <defs>
+        <filter
+          id="container-glass"
+          x="0%"
+          y="0%"
+          width="100%"
+          height="100%"
+          color-interpolation-filters="sRGB"
+        >
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.05 0.05"
+            numOctaves="1"
+            seed="1"
+            result="turbulence"
+          />
+          <feGaussianBlur in="turbulence" stdDeviation="2" result="blurredNoise" />
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="blurredNoise"
+            scale="70"
+            xChannelSelector="R"
+            yChannelSelector="B"
+            result="displaced"
+          />
+          <feGaussianBlur in="displaced" stdDeviation="4" result="finalBlur" />
+          <feComposite in="finalBlur" in2="finalBlur" operator="over" />
+        </filter>
+      </defs>
+    </svg>
+
+    <!-- Mesh gradient-shader (ægte @paper-design/shaders, vanilla via ESM) -->
+    <script type="module">
+      (async () => {
+        const mount = document.getElementById("hero-shader");
+        if (!mount) return;
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        try {
+          const { ShaderMount, meshGradientFragmentShader, getShaderColorFromString } =
+            await import("https://esm.sh/@paper-design/shaders");
+
+          const colors = ["#72b9bb", "#b5d9d9", "#ffd1bd", "#ffebe0", "#8cc5b8", "#dbf4a4"];
+
+          const uniforms = {
+            u_colors: colors.map(getShaderColorFromString),
+            u_colorsCount: colors.length,
+            u_distortion: 1.2,
+            u_swirl: 0.6,
+            u_grainMixer: 0,
+            u_grainOverlay: 0,
+            u_fit: 1, // contain
+            u_rotation: 0,
+            u_scale: 1,
+            u_offsetX: 0.08,
+            u_offsetY: 0,
+            u_originX: 0.5,
+            u_originY: 0.5,
+            u_worldWidth: 0,
+            u_worldHeight: 0,
+          };
+
+          // ShaderMount(parentElement, fragmentShader, uniforms, ctxAttrs, speed, frame)
+          new ShaderMount(
+            mount,
+            meshGradientFragmentShader,
+            uniforms,
+            undefined,
+            reduce ? 0 : 0.8,
+            0
+          );
+          mount.classList.add("is-ready");
+        } catch (e) {
+          // Falder tilbage til den statiske gradient på .hero-bg
+          console.warn("Mesh gradient kunne ikke indlæses:", e);
+        }
+      })();
+    </script>
 
     <script src="script.js" defer></script>
     <script src="load-layout.js" defer></script>

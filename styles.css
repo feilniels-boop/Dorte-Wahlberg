@@ -421,11 +421,47 @@ a:hover {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 85% 20%, rgba(92, 127, 106, 0.18), transparent 55%),
-    radial-gradient(ellipse 60% 50% at 10% 80%, rgba(184, 149, 108, 0.12), transparent 50%),
-    linear-gradient(180deg, #f5f1ea 0%, var(--color-bg) 100%);
+  overflow: hidden;
+  background: linear-gradient(180deg, #f5f1ea 0%, var(--color-bg) 100%);
   z-index: 0;
+}
+
+/* Mesh gradient-shader (WebGL canvas indsættes af @paper-design/shaders) */
+.hero-shader {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease-out);
+}
+
+.hero-shader.is-ready {
+  opacity: 1;
+}
+
+.hero-shader canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Slør — holder den mørke overskrift læsbar oven på de levende farver */
+.hero-veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: rgba(250, 248, 245, 0.55);
+}
+
+@media (min-width: 900px) {
+  .hero-veil {
+    background: linear-gradient(
+      100deg,
+      rgba(250, 248, 245, 0.82) 0%,
+      rgba(250, 248, 245, 0.62) 38%,
+      rgba(250, 248, 245, 0.32) 70%,
+      rgba(250, 248, 245, 0.2) 100%
+    );
+  }
 }
 
 .hero-layout {
@@ -560,6 +596,13 @@ a:hover {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.22s var(--ease-out), border-color 0.2s ease, transform 0.22s var(--ease-out);
+}
+
+.cred-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: rgba(92, 127, 106, 0.3);
+  transform: translateY(-3px);
 }
 
 .cred-card h3 {
@@ -600,6 +643,13 @@ a:hover {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.22s var(--ease-out), border-color 0.2s ease, transform 0.22s var(--ease-out);
+}
+
+.offer-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: rgba(92, 127, 106, 0.3);
+  transform: translateY(-3px);
 }
 
 .offer-card h3 {
@@ -720,8 +770,17 @@ a:hover {
 }
 
 .partner-tile {
+  display: block;
   margin: 0;
   height: 100%;
+  text-decoration: none;
+  color: inherit;
+  border-radius: var(--radius-md);
+}
+
+.partner-tile:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
 }
 
 .partner-tile__frame {
@@ -738,9 +797,15 @@ a:hover {
   transition: border-color 0.2s ease, box-shadow 0.22s var(--ease-out);
 }
 
-.partner-tile:hover .partner-tile__frame {
+.partner-tile:hover .partner-tile__frame,
+.partner-tile:focus-visible .partner-tile__frame {
   border-color: rgba(92, 127, 106, 0.22);
   box-shadow: var(--shadow-sm);
+}
+
+.partner-tile:hover .partner-tile__caption,
+.partner-tile:focus-visible .partner-tile__caption {
+  color: var(--color-ink);
 }
 
 .partner-tile__caption {
@@ -844,6 +909,105 @@ a:hover {
 .btn-secondary:hover {
   background: var(--color-accent-dark);
   color: #fff;
+}
+
+/* Liquid glass CTA — native genskabelse af liquid-glass-button (ingen React nødvendig) */
+
+.liquid-glass-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.liquid-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 2.1rem;
+  font-family: var(--font-sans);
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  color: var(--color-accent-dark);
+  border-radius: 999px;
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.3s var(--ease-out), color 0.2s ease;
+}
+
+.liquid-btn:hover {
+  transform: scale(1.05);
+  color: var(--color-accent-dark);
+}
+
+.liquid-btn:active {
+  transform: scale(0.98);
+}
+
+.liquid-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+/* Brydningslag: forvrænger og frostner det, der ligger bag knappen */
+.liquid-btn__glass {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  pointer-events: none;
+  backdrop-filter: blur(2px) url("#container-glass");
+  -webkit-backdrop-filter: blur(2px);
+}
+
+/* Kant/relief: lagdelte inset-skygger danner selve glas-look'et */
+.liquid-btn__shine {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  pointer-events: none;
+  box-shadow:
+    0 0 6px rgba(28, 25, 23, 0.03),
+    0 2px 6px rgba(28, 25, 23, 0.08),
+    inset 3px 3px 0.5px -3px rgba(28, 25, 23, 0.9),
+    inset -3px -3px 0.5px -3px rgba(28, 25, 23, 0.85),
+    inset 1px 1px 1px -0.5px rgba(28, 25, 23, 0.6),
+    inset -1px -1px 1px -0.5px rgba(28, 25, 23, 0.6),
+    inset 0 0 6px 6px rgba(28, 25, 23, 0.12),
+    inset 0 0 2px 2px rgba(28, 25, 23, 0.06),
+    0 0 12px rgba(255, 255, 255, 0.3);
+  transition: box-shadow 0.3s var(--ease-out);
+}
+
+.liquid-btn:hover .liquid-btn__shine {
+  box-shadow:
+    0 0 8px rgba(28, 25, 23, 0.04),
+    0 4px 10px rgba(28, 25, 23, 0.1),
+    inset 3px 3px 0.5px -3px rgba(28, 25, 23, 0.9),
+    inset -3px -3px 0.5px -3px rgba(28, 25, 23, 0.85),
+    inset 1px 1px 1px -0.5px rgba(28, 25, 23, 0.6),
+    inset -1px -1px 1px -0.5px rgba(28, 25, 23, 0.6),
+    inset 0 0 8px 7px rgba(28, 25, 23, 0.14),
+    inset 0 0 2px 2px rgba(28, 25, 23, 0.06),
+    0 0 16px rgba(255, 255, 255, 0.4);
+}
+
+.liquid-btn__label {
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .liquid-btn,
+  .liquid-btn__shine {
+    transition: none;
+  }
+
+  .liquid-btn:hover {
+    transform: none;
+  }
 }
 
 /* Sections */
@@ -1283,16 +1447,174 @@ a:hover {
 
 .site-footer {
   border-top: 1px solid var(--color-border);
-  padding: 1.25rem 0 2rem;
-  background: var(--color-bg-alt);
+  padding: clamp(2.5rem, 5vw, 3.5rem) 0 1.75rem;
+  background:
+    radial-gradient(ellipse 70% 80% at 90% 0%, rgba(92, 127, 106, 0.08), transparent 60%),
+    var(--color-bg-alt);
 }
 
-.footer-inner {
-  text-align: center;
+.footer-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;
 }
 
-.footer-copy {
+@media (min-width: 680px) {
+  .footer-grid {
+    grid-template-columns: 1.6fr 1fr 1.3fr;
+    gap: 2.5rem;
+  }
+}
+
+.footer-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.15rem;
+  color: var(--color-ink);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.footer-logo img {
+  border-radius: var(--radius-sm);
+}
+
+.footer-tagline {
+  margin: 0.9rem 0 0.6rem;
+  max-width: 34ch;
+  color: var(--color-ink-muted);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+.footer-kicker {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent-dark);
+}
+
+.footer-heading {
+  margin: 0 0 0.9rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+.footer-nav ul,
+.footer-contact ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.footer-nav a,
+.footer-contact a {
+  color: var(--color-ink-muted);
+  text-decoration: none;
+  font-size: 0.96rem;
+  transition: color 0.18s ease;
+}
+
+.footer-nav a:hover,
+.footer-contact a:hover {
+  color: var(--color-accent-dark);
+}
+
+.footer-contact li {
+  color: var(--color-ink-muted);
+  font-size: 0.96rem;
+  line-height: 1.5;
+}
+
+.footer-bottom {
+  margin-top: clamp(2rem, 4vw, 2.75rem);
+  padding-top: 1.25rem;
+  border-top: 1px dashed var(--color-warm);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem 1.5rem;
+}
+
+.footer-copy,
+.footer-made {
   margin: 0;
   font-size: 0.8125rem;
   color: var(--color-ink-muted);
+}
+
+.footer-made {
+  font-style: italic;
+}
+
+/* Sting-motiv — stiplet linje, der trækker tråden fra håndværket ind i layoutet */
+
+.home-section-title,
+.page-intro h1,
+.page-main .wrap > h1 {
+  position: relative;
+}
+
+.home-section-title::after {
+  content: "";
+  display: block;
+  width: 2.5rem;
+  height: 0;
+  margin-top: 0.7rem;
+  border-top: 2px dashed var(--color-warm);
+  opacity: 0.85;
+}
+
+/* Scroll-reveal — bløde, faldende indtoninger */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+
+.reveal-stagger.is-visible > * {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-stagger.is-visible > *:nth-child(2) { transition-delay: 0.08s; }
+.reveal-stagger.is-visible > *:nth-child(3) { transition-delay: 0.16s; }
+.reveal-stagger.is-visible > *:nth-child(4) { transition-delay: 0.24s; }
+.reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 0.32s; }
+.reveal-stagger.is-visible > *:nth-child(6) { transition-delay: 0.40s; }
+.reveal-stagger.is-visible > *:nth-child(7) { transition-delay: 0.48s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-stagger > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
