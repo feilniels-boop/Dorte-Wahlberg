@@ -1262,6 +1262,66 @@ a:hover {
   vertical-align: middle;
 }
 
+/* RevealWaveImage — Three.js-canvas der lægger sig oven på billedet */
+.reveal-wave {
+  position: relative;
+}
+
+.reveal-wave.is-ready {
+  cursor: crosshair;
+}
+
+.reveal-wave__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 0;
+  transition: opacity 0.9s var(--ease-out);
+}
+
+.reveal-wave.is-ready .reveal-wave__canvas {
+  opacity: 1;
+}
+
+/* Når shaderen er klar, skjules det statiske billede visuelt (men holder højden) */
+.reveal-wave.is-ready img {
+  visibility: hidden;
+}
+
+.reveal-wave__hint {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: 0.9rem;
+  transform: translateX(-50%);
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #fff;
+  background: rgba(28, 25, 23, 0.55);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.reveal-wave.is-ready .reveal-wave__hint {
+  opacity: 1;
+}
+
+.reveal-wave.is-ready:hover .reveal-wave__hint {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-wave__hint {
+    display: none;
+  }
+}
+
 .activity-card ul {
   padding-left: 1.25rem;
 }
@@ -1568,15 +1628,6 @@ a:hover {
   position: relative;
 }
 
-.home-section-title::after {
-  content: "";
-  display: block;
-  width: 2.5rem;
-  height: 0;
-  margin-top: 0.7rem;
-  border-top: 2px dashed var(--color-warm);
-  opacity: 0.85;
-}
 
 /* Scroll-reveal — bløde, faldende indtoninger */
 
