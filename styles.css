@@ -53,6 +53,17 @@ img {
   display: block;
 }
 
+.home-artwork-figure {
+  margin: 0 auto;
+  max-width: 640px;
+}
+
+.home-artwork-figure img {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
 a {
   color: var(--color-accent-dark);
   text-underline-offset: 3px;
