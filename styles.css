@@ -961,73 +961,6 @@ a:hover {
   border: 0;
 }
 
-/* ── Spotlight glow — partner tiles ──────────────────────────────────────────
-   Ported from GlowCard (React / Tailwind) → vanilla CSS custom properties.
-   --glow-x / --glow-y: viewport-absolutte px-koordinater sat af script.js
-   background-attachment: fixed gør at gradienten sidder fast i viewport-rum,
-   så alle kort deler den samme "sol" ved musen.
-─────────────────────────────────────────────────────────────────────────── */
-:root {
-  --glow-x: -9999;
-  --glow-y: -9999;
-  --glow-xp: 0;
-}
-
-.partner-tile__frame[data-glow] {
-  --glow-hue: calc(148 + var(--glow-xp) * 28);
-  --glow-r:   130px;
-  --glow-bw:  1.5px;
-  background-image: radial-gradient(
-    var(--glow-r) var(--glow-r)
-    at calc(var(--glow-x) * 1px) calc(var(--glow-y) * 1px),
-    hsl(var(--glow-hue) 65% 52% / 0.28),
-    transparent
-  );
-  background-attachment: fixed;
-}
-
-/* Glødende kant — vises kun i border-regionen via mask intersect */
-.partner-tile__frame[data-glow]::before,
-.partner-tile__frame[data-glow]::after {
-  pointer-events: none;
-  content: "";
-  position: absolute;
-  inset: calc(var(--glow-bw) * -1);
-  border: var(--glow-bw) solid transparent;
-  border-radius: inherit;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  /* standard */
-  mask: linear-gradient(transparent, transparent),
-        linear-gradient(white, white);
-  mask-clip: padding-box, border-box;
-  mask-composite: intersect;
-  /* webkit (Safari) */
-  -webkit-mask: linear-gradient(transparent, transparent),
-                linear-gradient(white, white);
-  -webkit-mask-clip: padding-box, border-box;
-  -webkit-mask-composite: destination-in;
-}
-
-.partner-tile__frame[data-glow]::before {
-  background-image: radial-gradient(
-    calc(var(--glow-r) * 0.7) calc(var(--glow-r) * 0.7)
-    at calc(var(--glow-x) * 1px) calc(var(--glow-y) * 1px),
-    hsl(var(--glow-hue) 68% 46% / 0.88),
-    transparent 100%
-  );
-  filter: brightness(2.2);
-}
-
-.partner-tile__frame[data-glow]::after {
-  background-image: radial-gradient(
-    calc(var(--glow-r) * 0.44) calc(var(--glow-r) * 0.44)
-    at calc(var(--glow-x) * 1px) calc(var(--glow-y) * 1px),
-    hsl(0 0% 100% / 0.72),
-    transparent 100%
-  );
-}
 
 .home-partners-foot {
   margin: 2rem 0 0;
@@ -1876,46 +1809,6 @@ a:hover {
    Tilføjet for at give sitet det 70.000 kr. premium agency-feel.
 ══════════════════════════════════════════════════════════════════ */
 
-/* ── Custom cursor (kun desktop — hover:hover + pointer:fine) ─────── */
-@media (hover: hover) and (pointer: fine) {
-  /* Native cursor beholdes — dot + ring er et dekorativt lag ovenpå */
-
-  .cur-dot {
-    position: fixed;
-    top: 0; left: 0;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--color-accent);
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: width 0.15s ease, height 0.15s ease,
-                opacity 0.2s ease, background 0.2s ease;
-    mix-blend-mode: multiply;
-    will-change: left, top;
-  }
-
-  .cur-ring {
-    position: fixed;
-    top: 0; left: 0;
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    border: 1.5px solid var(--color-accent);
-    pointer-events: none;
-    z-index: 9997;
-    transform: translate(-50%, -50%);
-    opacity: 0.38;
-    transition: width 0.22s ease, height 0.22s ease,
-                opacity 0.22s ease, border-color 0.22s ease;
-    will-change: left, top;
-  }
-
-  .cur-dot.is-hover  { width: 13px; height: 13px; background: var(--color-accent-dark); }
-  .cur-ring.is-hover { width: 50px; height: 50px; opacity: 0.55; border-color: var(--color-accent-dark); }
-  .cur-dot.is-down   { transform: translate(-50%, -50%) scale(0.65); }
-  .cur-dot.is-hidden,
-  .cur-ring.is-hidden { opacity: 0 !important; }
-}
 
 /* ── Hero foto — subtil float (kun desktop) ──────────────────────── */
 @media (prefers-reduced-motion: no-preference) and (min-width: 900px) {

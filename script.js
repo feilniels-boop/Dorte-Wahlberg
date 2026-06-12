@@ -88,41 +88,7 @@
     });
   }
 
-  /* ── Spotlight glow — partner tiles ──────────────────────────────
-     Sætter data-glow på .partner-tile__frame og sporer musen via
-     CSS custom properties på :root. background-attachment: fixed
-     sikrer at gradienten lever i viewport-rum — alle kort deler
-     den samme "lyskilde" ved musen.
-  ─────────────────────────────────────────────────────────────────── */
-  function initGlowCards() {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    var frames = document.querySelectorAll(".partner-tile__frame");
-    if (!frames.length) return;
-
-    frames.forEach(function (frame) {
-      frame.setAttribute("data-glow", "");
-    });
-
-    var root = document.documentElement;
-    var raf = null;
-
-    document.addEventListener("pointermove", function (e) {
-      if (raf) return;
-      raf = requestAnimationFrame(function () {
-        root.style.setProperty("--glow-x",  e.clientX.toFixed(1));
-        root.style.setProperty("--glow-y",  e.clientY.toFixed(1));
-        root.style.setProperty("--glow-xp", (e.clientX / window.innerWidth).toFixed(4));
-        raf = null;
-      });
-    });
-
-    document.addEventListener("mouseleave", function () {
-      root.style.setProperty("--glow-x", "-9999");
-      root.style.setProperty("--glow-y", "-9999");
-    });
-  }
-
-  /* ── Spark-effekt (porteret fra SparkEffect React-komponenten) ───────
+/* ── Spark-effekt (porteret fra SparkEffect React-komponenten) ───────
      Vanilla canvas — ingen afhængigheder. Gnister spawnes med setInterval
      og tegnes via requestAnimationFrame. Sektionen bruges som container
      (position:relative + overflow:hidden sat i CSS), canvaset indsættes
@@ -212,64 +178,7 @@
     if (testimonial) attachSparks(testimonial, { amount: 60, maxopacity: 0.65 });
   }
 
-  /* ── Custom cursor — dot + lerp-ring (kun hover-pointer enheder) ─────
-     Et custom cursor-par er et af de mest markante tegn på et premium site.
-     Dot sætter sig øjeblikkeligt. Ringen følger efter med en lerp-faktor
-     (0.10) så den ser ud til at "hænge" lidt. Hover-state vokser ringen.
-  ─────────────────────────────────────────────────────────────────────── */
-  function initCustomCursor() {
-    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-
-    var dot  = document.createElement("div"); dot.className  = "cur-dot";
-    var ring = document.createElement("div"); ring.className = "cur-ring";
-    document.body.append(dot, ring);
-
-    var mx = -200, my = -200, rx = -200, ry = -200;
-
-    /* Dot følger musen direkte */
-    document.addEventListener("mousemove", function (e) {
-      mx = e.clientX; my = e.clientY;
-      dot.style.left = mx + "px";
-      dot.style.top  = my + "px";
-    });
-
-    /* Ring følger med lineær interpolation (lag = premium) */
-    (function lerpRing() {
-      rx += (mx - rx) * 0.10;
-      ry += (my - ry) * 0.10;
-      ring.style.left = rx.toFixed(1) + "px";
-      ring.style.top  = ry.toFixed(1) + "px";
-      requestAnimationFrame(lerpRing);
-    })();
-
-    /* Hover-effekt via event-delegation (dækker dynamisk tilføjede elementer) */
-    document.addEventListener("mouseover", function (e) {
-      if (e.target.closest("a, button, .partner-tile, .cred-card, .offer-card, .liquid-btn, [role='button']")) {
-        dot.classList.add("is-hover");
-        ring.classList.add("is-hover");
-      }
-    });
-    document.addEventListener("mouseout", function (e) {
-      if (e.target.closest("a, button, .partner-tile, .cred-card, .offer-card, .liquid-btn, [role='button']")) {
-        dot.classList.remove("is-hover");
-        ring.classList.remove("is-hover");
-      }
-    });
-
-    /* Klik-animation */
-    document.addEventListener("mousedown", function () { dot.classList.add("is-down"); });
-    document.addEventListener("mouseup",   function () { dot.classList.remove("is-down"); });
-
-    /* Skjul når musen forlader vinduet */
-    document.addEventListener("mouseleave", function () {
-      dot.classList.add("is-hidden"); ring.classList.add("is-hidden");
-    });
-    document.addEventListener("mouseenter", function () {
-      dot.classList.remove("is-hidden"); ring.classList.remove("is-hidden");
-    });
-  }
-
-  /* ── 3D Card Tilt + shine overlay ────────────────────────────────────
+/* ── 3D Card Tilt + shine overlay ────────────────────────────────────
      Hvert kort tilter op til ±8° i begge akser baseret på musens position
      relativt til kortets centrum. Et radial-gradient shine-lag følger musen.
      Touch-enheder og reduced-motion springes over.
@@ -326,9 +235,7 @@
   function init() {
     bindNav();
     initReveal();
-    initGlowCards();
     initSparkEffect();
-    initCustomCursor();
     initCardTilt();
   }
 
