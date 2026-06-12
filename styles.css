@@ -779,7 +779,47 @@ a:hover {
 }
 
 .home-about-inner {
-  max-width: 720px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  max-width: 1100px;
+}
+
+.home-about-art {
+  margin: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.22);
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: box-shadow 0.4s var(--ease-out), transform 0.5s var(--ease-out);
+}
+
+.home-about-art img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.5s var(--ease-out), filter 0.4s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .home-about-art:hover {
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.32);
+  }
+  .home-about-art:hover img {
+    filter: brightness(1.06) saturate(1.12);
+  }
+}
+
+@media (max-width: 899px) {
+  .home-about-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .home-about-art {
+    order: -1;
+  }
 }
 
 .home-about-text p {

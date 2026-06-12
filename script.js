@@ -189,6 +189,27 @@
 
     var TILT = 8; /* max grader */
 
+    document.querySelectorAll(".home-about-art").forEach(function (art) {
+      var TILT = 5;
+      art.addEventListener("mouseenter", function () {
+        art.style.transition = "box-shadow 0.3s var(--ease-out)";
+      });
+      art.addEventListener("mousemove", function (e) {
+        var r  = art.getBoundingClientRect();
+        var dx = (e.clientX - (r.left + r.width  * 0.5)) / (r.width  * 0.5);
+        var dy = (e.clientY - (r.top  + r.height * 0.5)) / (r.height * 0.5);
+        art.style.transform =
+          "perspective(900px)" +
+          " rotateY(" + (dx * TILT).toFixed(2) + "deg)" +
+          " rotateX(" + (-dy * TILT).toFixed(2) + "deg)" +
+          " scale(1.02)";
+      });
+      art.addEventListener("mouseleave", function () {
+        art.style.transition = "transform 0.5s var(--ease-out), box-shadow 0.4s var(--ease-out)";
+        art.style.transform = "";
+      });
+    });
+
     document.querySelectorAll(".cred-card, .offer-card").forEach(function (card) {
       /* Indsæt shine-span som første barn */
       var shine = document.createElement("span");
