@@ -1343,6 +1343,42 @@ a:hover {
   text-align: center;
 }
 
+/* Kalender */
+
+.kalender-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  max-width: 760px;
+}
+
+.kalender-list li {
+  margin-bottom: 1rem;
+  padding-left: 0.35rem;
+  line-height: 1.55;
+}
+
+.kalender-list li:last-child {
+  margin-bottom: 0;
+}
+
+.kalender-list li::marker {
+  color: var(--color-accent-dark);
+}
+
+.kalender-date {
+  font-weight: 700;
+  color: var(--color-accent-dark);
+}
+
+.kalender-date::after {
+  content: ": ";
+}
+
+.kalender-note {
+  margin: 1.75rem 0 0;
+  color: var(--color-ink-muted);
+}
+
 /* Aktiviteter */
 
 .activity-card {
