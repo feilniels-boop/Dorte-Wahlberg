@@ -32,6 +32,7 @@ app.get("/", (req, res) => {
 // (fx tilmeldingslinket paa craftpsykologi.dk) stadig virker.
 const legacyRedirects = {
   "/aktiviteter-og-kurser-2": "/aktiviteter.html",
+  "/kurser": "/",
 };
 
 Object.keys(legacyRedirects).forEach((from) => {
