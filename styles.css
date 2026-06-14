@@ -1343,6 +1343,81 @@ a:hover {
   text-align: center;
 }
 
+/* Blogindlaeg */
+
+.wrap-narrow {
+  max-width: 760px;
+}
+
+.blog-post__back {
+  margin: 0 0 1.25rem;
+  font-size: 0.9375rem;
+}
+
+.blog-post__back a {
+  color: var(--color-accent-dark);
+  text-decoration: none;
+}
+
+.blog-post__back a:hover {
+  text-decoration: underline;
+}
+
+.blog-post h1 {
+  margin: 0 0 0.5rem;
+}
+
+.blog-post__date {
+  margin: 0 0 1.75rem;
+  color: var(--color-ink-muted);
+  font-size: 0.9375rem;
+}
+
+.blog-post__hero {
+  margin: 0 0 1.75rem;
+}
+
+.blog-post__hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+}
+
+.blog-post__body {
+  line-height: 1.7;
+}
+
+.blog-post__body p {
+  margin: 0 0 1.15rem;
+}
+
+.blog-post__body img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  margin: 1.5rem 0;
+}
+
+.blog-post__body h2,
+.blog-post__body h3 {
+  font-family: var(--font-serif);
+  margin: 2rem 0 0.75rem;
+}
+
+.blog-post__body a {
+  color: var(--color-accent-dark);
+}
+
+.blog-card__meta {
+  margin: 0 0 0.5rem;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-accent-dark);
+}
+
 /* Kalender */
 
 .kalender-list {
