@@ -28,6 +28,17 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(root, "index.html"));
 });
 
+// Viderestil gamle WordPress-adresser til de nye sider, saa eksterne links
+// (fx tilmeldingslinket paa craftpsykologi.dk) stadig virker.
+const legacyRedirects = {
+  "/aktiviteter-og-kurser-2": "/aktiviteter.html",
+};
+
+Object.keys(legacyRedirects).forEach((from) => {
+  const to = legacyRedirects[from];
+  app.get([from, from + "/"], (req, res) => res.redirect(301, to));
+});
+
 app.use(
   express.static(root, {
     index: false,
