@@ -1688,12 +1688,20 @@ a:hover {
 
 
 .gallery-grid--natural .gallery-item {
-  aspect-ratio: auto;
+  aspect-ratio: 1;
 }
 
 .gallery-grid--natural .gallery-item img {
-  height: auto;
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-item--contain {
+  aspect-ratio: 3 / 4 !important;
+}
+
+.gallery-item--contain img {
+  object-fit: cover !important;
 }
 
 .gallery-item--cover {
