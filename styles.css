@@ -2048,6 +2048,27 @@ a:hover {
   box-shadow: 0 10px 32px rgba(92,127,106,0.12), 0 1px 6px rgba(0,0,0,0.05);
 }
 
+/* ── Cred-fotos side om side ──────────────────────────────────────── */
+.cred-photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.cred-photo {
+  margin: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.cred-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 /* ── CTA-knap — pulserende opmærksomhedsring ─────────────────────── */
 @media (prefers-reduced-motion: no-preference) {
   @keyframes ctaRingPulse {
