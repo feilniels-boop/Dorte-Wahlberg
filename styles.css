@@ -1686,6 +1686,11 @@ a:hover {
   transform: scale(1.04);
 }
 
+.gallery-grid--natural > li:nth-child(1) {
+  grid-column: auto;
+  grid-row: auto;
+}
+
 .gallery-grid--natural .gallery-item {
   aspect-ratio: auto;
 }
