@@ -1654,6 +1654,26 @@ a:hover {
   transform: scale(1.04);
 }
 
+.gallery-grid--natural .gallery-item {
+  aspect-ratio: auto;
+}
+
+.gallery-grid--natural .gallery-item img {
+  height: auto;
+  object-fit: contain;
+}
+
+.gallery-item--zoom-bg {
+  aspect-ratio: 3 / 4 !important;
+  background-size: 138%;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+
+.img-zoom-hidden {
+  display: none !important;
+}
+
 @media (min-width: 720px) {
   .gallery-grid > li:nth-child(1) {
     grid-column: span 2;
