@@ -831,6 +831,13 @@ a:hover {
   .home-about-art {
     order: -1;
   }
+  .home-why-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .home-why-art {
+    order: -1;
+  }
 }
 
 .home-about-text p {
@@ -859,20 +866,24 @@ a:hover {
 }
 
 .home-why-inner {
-  max-width: 720px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  max-width: 1100px;
 }
 
-.why-craft-card {
-  margin: 0;
-  padding: 1.5rem 1.65rem;
-  background: linear-gradient(165deg, var(--color-surface) 0%, #c8e6c9 100%);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
+.home-why-text p {
+  margin: 0 0 1rem;
+  color: var(--color-ink-muted);
+  line-height: 1.7;
+}
+
+.home-why-text p:last-child {
+  margin-bottom: 0;
 }
 
 .why-craft-lead {
-  margin: 0 0 1rem;
   font-family: var(--font-serif);
   font-size: 1.2rem;
   font-weight: 600;
@@ -880,14 +891,17 @@ a:hover {
   color: var(--color-accent-dark);
 }
 
-.why-craft-card p:not(.why-craft-lead) {
-  margin: 0 0 1rem;
-  color: var(--color-ink-muted);
-  line-height: 1.7;
+.home-why-art {
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
 }
 
-.why-craft-card p:last-child {
-  margin-bottom: 0;
+.home-why-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* Forside — samarbejdspartnere / social proof */
