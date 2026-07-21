@@ -1872,6 +1872,17 @@ a:hover {
 
 /* Nyhedsbrev — tilmeldingsformular */
 
+.newsletter-single {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.newsletter-note {
+  margin: 1.5rem 0 0;
+  font-size: 0.9rem;
+  color: var(--color-ink-muted);
+}
+
 .newsletter-form {
   margin-top: 1.5rem;
   display: flex;
