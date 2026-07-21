@@ -253,11 +253,182 @@
     });
   }
 
+/* ── Nyhedsbrev: fælles tilmeldings-kald ────────────────────────────── */
+  function dwSubscribe(payload) {
+    return fetch("/api/subscribe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    }).then(function (r) {
+      return r
+        .json()
+        .then(function (json) {
+          return { ok: r.ok && json && json.ok, error: json && json.error };
+        })
+        .catch(function () {
+          return { ok: false };
+        });
+    });
+  }
+  window.DWSubscribe = dwSubscribe;
+
+/* ── Nyhedsbrev pop-up ───────────────────────────────────────────────
+     Dukker op efter en kort forsinkelse. Huskes i localStorage, saa den
+     ikke plager: skjules i 30 dage hvis den lukkes, og aldrig igen naar
+     man har tilmeldt sig. Vises ikke paa selve nyhedsbrev-siden.
+  ───────────────────────────────────────────────────────────────────── */
+  function initNewsletterPopup() {
+    var path = (location.pathname || "").toLowerCase();
+    if (path.indexOf("nyhedsbrev") !== -1) return;
+
+    var STORE_DONE = "dw_nl_done";
+    var STORE_DISMISS = "dw_nl_dismissed";
+    var DISMISS_DAYS = 30;
+    var DELAY = 7000; /* ms — vises efter 7 sekunder */
+
+    function get(key) {
+      try { return localStorage.getItem(key); } catch (e) { return null; }
+    }
+    function set(key, val) {
+      try { localStorage.setItem(key, val); } catch (e) {}
+    }
+
+    if (get(STORE_DONE)) return;
+    var dismissedAt = parseInt(get(STORE_DISMISS) || "0", 10);
+    if (dismissedAt && Date.now() - dismissedAt < DISMISS_DAYS * 864e5) return;
+
+    var popup, card, lastFocus;
+
+    function build() {
+      popup = document.createElement("div");
+      popup.className = "nl-popup";
+      popup.setAttribute("role", "dialog");
+      popup.setAttribute("aria-modal", "true");
+      popup.setAttribute("aria-labelledby", "nl-popup-title");
+      popup.hidden = true;
+      popup.innerHTML =
+        '<div class="nl-popup-backdrop" data-close></div>' +
+        '<div class="nl-popup-card">' +
+        '<button type="button" class="nl-popup-close" aria-label="Luk" data-close>&times;</button>' +
+        '<h2 id="nl-popup-title">Vær med på nyhedslisten</h2>' +
+        "<p>Få nyt om kurser, events og små tekster om craft psykologi — direkte i din indbakke. Afmeld når som helst.</p>" +
+        '<form class="newsletter-form nl-popup-form" novalidate>' +
+        '<div class="field">' +
+        '<label for="nlp-email">E-mail</label>' +
+        '<input id="nlp-email" name="email" type="email" required autocomplete="email" placeholder="dig@eksempel.dk" />' +
+        "</div>" +
+        '<div class="field-hp" aria-hidden="true"><input name="website" type="text" tabindex="-1" autocomplete="off" /></div>' +
+        '<label class="consent"><input type="checkbox" name="consent" value="ja" required /><span>Ja tak, jeg vil gerne modtage nyhedsbreve fra Dorte Wahlberg.</span></label>' +
+        '<button type="submit" class="btn btn-primary newsletter-submit">Tilmeld mig</button>' +
+        '<p class="form-status" role="status" aria-live="polite"></p>' +
+        "</form>" +
+        "</div>";
+      document.body.appendChild(popup);
+      card = popup.querySelector(".nl-popup-card");
+
+      popup.querySelectorAll("[data-close]").forEach(function (el) {
+        el.addEventListener("click", close);
+      });
+      popup.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") close();
+        else if (e.key === "Tab") trapFocus(e);
+      });
+      popup.querySelector("form").addEventListener("submit", onSubmit);
+    }
+
+    function trapFocus(e) {
+      var f = Array.prototype.filter.call(
+        card.querySelectorAll('button, input, [href], [tabindex]:not([tabindex="-1"])'),
+        function (el) { return !el.disabled && el.offsetParent !== null; }
+      );
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+
+    function open() {
+      if (!popup) build();
+      lastFocus = document.activeElement;
+      popup.hidden = false;
+      void popup.offsetWidth; /* reflow, saa transitionen kan koere */
+      popup.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+      var email = popup.querySelector("#nlp-email");
+      if (email) email.focus();
+    }
+
+    function close() {
+      if (!popup) return;
+      popup.classList.remove("is-open");
+      document.body.style.overflow = "";
+      if (!get(STORE_DONE)) set(STORE_DISMISS, String(Date.now()));
+      window.setTimeout(function () { popup.hidden = true; }, 300);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    function onSubmit(e) {
+      e.preventDefault();
+      var form = e.target;
+      var status = form.querySelector(".form-status");
+      var submit = form.querySelector(".newsletter-submit");
+      status.textContent = "";
+      status.className = "form-status";
+
+      var data = {
+        email: form.email.value.trim(),
+        consent: form.consent.checked,
+        website: form.website.value,
+      };
+      if (!data.email) {
+        status.textContent = "Skriv din e-mailadresse.";
+        status.className = "form-status is-error";
+        form.email.focus();
+        return;
+      }
+      if (!data.consent) {
+        status.textContent = "Sæt flueben i samtykket for at tilmelde dig.";
+        status.className = "form-status is-error";
+        return;
+      }
+
+      submit.disabled = true;
+      var original = submit.textContent;
+      submit.textContent = "Sender …";
+
+      dwSubscribe(data)
+        .then(function (res) {
+          if (res.ok) {
+            set(STORE_DONE, "1");
+            form.reset();
+            status.textContent = "Tak! Tjek din indbakke og bekræft din tilmelding.";
+            status.className = "form-status is-success";
+            window.setTimeout(close, 2600);
+          } else {
+            status.textContent =
+              res.error || "Noget gik galt. Prøv igen, eller skriv til info@dortewahlberg.dk.";
+            status.className = "form-status is-error";
+          }
+        })
+        .catch(function () {
+          status.textContent = "Kunne ikke få forbindelse. Prøv igen senere.";
+          status.className = "form-status is-error";
+        })
+        .then(function () {
+          submit.disabled = false;
+          submit.textContent = original;
+        });
+    }
+
+    window.setTimeout(open, DELAY);
+  }
+
   function init() {
     bindNav();
     initReveal();
     initSparkEffect();
     initCardTilt();
+    initNewsletterPopup();
   }
 
   if (document.readyState === "loading") {

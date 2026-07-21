@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Tilmeld dig Dorte Wahlbergs nyhedsbrev og få nyt om kurser, events og craft psykologi."
+    />
+    <title>Nyhedsbrev — Dorte Wahlberg</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Spring til indhold</a>
+
+    <div id="site-header-root"></div>
+
+    <main id="main" class="page-main">
+      <section class="section page-intro section-contact">
+        <div class="wrap">
+          <h1>Nyhedsbrev</h1>
+        </div>
+      </section>
+
+      <section class="section section-contact" style="padding-top: 0">
+        <div class="wrap">
+          <div class="contact-grid">
+            <div class="contact-card">
+              <h2 class="contact-card-heading">Bliv en del af nyhedslisten</h2>
+              <p>
+                Få besked når der er nye kurser, events og forløb — og små tekster om craft
+                psykologi, håndværk og trivsel. Jeg skriver kun, når jeg har noget på hjerte, og
+                du kan afmelde igen med ét klik.
+              </p>
+
+              <form id="newsletter-form" class="newsletter-form" novalidate>
+                <div class="field">
+                  <label for="nl-name">Navn</label>
+                  <input
+                    id="nl-name"
+                    name="name"
+                    type="text"
+                    autocomplete="name"
+                    placeholder="Dit navn"
+                  />
+                </div>
+
+                <div class="field">
+                  <label for="nl-email">E-mail <span aria-hidden="true">*</span></label>
+                  <input
+                    id="nl-email"
+                    name="email"
+                    type="email"
+                    required
+                    autocomplete="email"
+                    placeholder="dig@eksempel.dk"
+                  />
+                </div>
+
+                <!-- Honeypot mod spam-robotter — skjult for mennesker -->
+                <div class="field-hp" aria-hidden="true">
+                  <label for="nl-website">Lad dette felt være tomt</label>
+                  <input id="nl-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+                </div>
+
+                <label class="consent">
+                  <input type="checkbox" name="consent" value="ja" required />
+                  <span>
+                    Ja tak, jeg vil gerne modtage nyhedsbreve fra Dorte Wahlberg. Jeg kan til
+                    enhver tid afmelde via linket i mails.
+                  </span>
+                </label>
+
+                <button type="submit" class="btn btn-primary newsletter-submit">Tilmeld mig</button>
+
+                <p class="form-status" role="status" aria-live="polite"></p>
+              </form>
+            </div>
+
+            <div class="contact-card contact-actions">
+              <p class="section-lead">
+                Foretrækker du at skrive direkte? Du er altid velkommen til at sende mig et par ord.
+              </p>
+              <a
+                class="btn btn-secondary"
+                href="mailto:info@dortewahlberg.dk?subject=Nyhedsbrev"
+                >Skriv til mig i stedet</a
+              >
+              <p style="margin-top: 1rem">
+                Dine oplysninger opbevares hos mit nyhedsbrevsværktøj og bruges kun til at sende dig
+                nyhedsbreve. De deles ikke med andre.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="site-footer-root"></div>
+
+    <script>
+      (function () {
+        var form = document.getElementById("newsletter-form");
+        if (!form) return;
+        var status = form.querySelector(".form-status");
+        var submit = form.querySelector(".newsletter-submit");
+
+        function setStatus(msg, type) {
+          status.textContent = msg;
+          status.className = "form-status" + (type ? " is-" + type : "");
+        }
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          setStatus("", "");
+
+          var data = {
+            name: form.name.value.trim(),
+            email: form.email.value.trim(),
+            consent: form.consent.checked,
+            website: form.website.value, // honeypot
+          };
+
+          if (!data.email) {
+            setStatus("Skriv din e-mailadresse.", "error");
+            form.email.focus();
+            return;
+          }
+          if (!data.consent) {
+            setStatus("Sæt flueben i samtykket for at tilmelde dig.", "error");
+            return;
+          }
+
+          submit.disabled = true;
+          var originalText = submit.textContent;
+          submit.textContent = "Sender …";
+
+          fetch("/api/subscribe", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          })
+            .then(function (r) {
+              return r.json().then(function (json) {
+                return { ok: r.ok, json: json };
+              });
+            })
+            .then(function (res) {
+              if (res.ok && res.json && res.json.ok) {
+                form.reset();
+                setStatus(
+                  "Tak! Tjek din indbakke og bekræft din tilmelding via mailen, vi lige har sendt.",
+                  "success"
+                );
+              } else {
+                setStatus(
+                  (res.json && res.json.error) ||
+                    "Noget gik galt. Prøv igen, eller skriv til info@dortewahlberg.dk.",
+                  "error"
+                );
+              }
+            })
+            .catch(function () {
+              setStatus(
+                "Kunne ikke få forbindelse. Prøv igen, eller skriv til info@dortewahlberg.dk.",
+                "error"
+              );
+            })
+            .then(function () {
+              submit.disabled = false;
+              submit.textContent = originalText;
+            });
+        });
+      })();
+    </script>
+
+    <script src="script.js" defer></script>
+    <script src="load-layout.js" defer></script>
+  </body>
+</html>

@@ -11,6 +11,70 @@ const HOST = "0.0.0.0";
 
 app.disable("x-powered-by");
 
+app.use(express.json({ limit: "10kb" }));
+
+// Nyhedsbrev-tilmelding — sender sikkert videre til MailerLite.
+// API-noeglen ligger som miljoevariabel paa serveren (Railway), aldrig i browseren.
+app.post("/api/subscribe", async (req, res) => {
+  const body = req.body || {};
+  const email = String(body.email || "").trim().toLowerCase();
+  const name = String(body.name || "").trim();
+  const consent = body.consent === true || body.consent === "ja" || body.consent === "on";
+  const honeypot = String(body.website || "").trim();
+
+  // Spam-robotter udfylder ofte det skjulte felt — svar OK uden at gemme noget.
+  if (honeypot) return res.json({ ok: true });
+
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if (!emailOk) {
+    return res.status(400).json({ ok: false, error: "Skriv en gyldig e-mailadresse." });
+  }
+  if (!consent) {
+    return res.status(400).json({ ok: false, error: "Saet flueben i samtykket for at tilmelde dig." });
+  }
+
+  const apiKey = process.env.MAILERLITE_API_KEY;
+  if (!apiKey) {
+    console.error("MAILERLITE_API_KEY mangler — kan ikke tilmelde:", email);
+    return res
+      .status(503)
+      .json({ ok: false, error: "Nyhedsbrevet er ikke sat helt op endnu. Proev igen senere." });
+  }
+
+  try {
+    const payload = { email };
+    if (name) payload.fields = { name };
+    if (process.env.MAILERLITE_GROUP_ID) {
+      payload.groups = [process.env.MAILERLITE_GROUP_ID];
+    }
+
+    const r = await fetch("https://connect.mailerlite.com/api/subscribers", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (r.ok) {
+      return res.json({ ok: true });
+    }
+
+    const text = await r.text();
+    console.error("MailerLite-fejl", r.status, text);
+    return res
+      .status(502)
+      .json({ ok: false, error: "Kunne ikke gennemfoere tilmeldingen. Proev igen." });
+  } catch (err) {
+    console.error("MailerLite-undtagelse", err);
+    return res
+      .status(502)
+      .json({ ok: false, error: "Kunne ikke gennemfoere tilmeldingen. Proev igen." });
+  }
+});
+
 app.use((req, res, next) => {
   const p = req.path || "";
   if (
