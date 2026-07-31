@@ -15,6 +15,53 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Fremhævet Koncentrat-forløb på forsiden */
+      .home-koncentrat .wrap {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(1.5rem, 4vw, 3rem);
+        align-items: center;
+      }
+      .home-koncentrat-media {
+        margin: 0;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+      }
+      .home-koncentrat-media img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .home-koncentrat-kicker {
+        font-family: var(--font-sans);
+        font-weight: 600;
+        font-size: 0.9rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--color-accent-dark);
+        margin: 0 0 0.5rem;
+      }
+      .home-koncentrat-meta {
+        color: var(--color-ink-muted);
+        font-weight: 600;
+        margin: 0 0 1.25rem;
+      }
+      .home-koncentrat-cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+      @media (max-width: 760px) {
+        .home-koncentrat .wrap {
+          grid-template-columns: 1fr;
+        }
+        .home-koncentrat-media {
+          order: -1;
+        }
+      }
+    </style>
   </head>
   <body>
     <a class="skip-link" href="#main">Spring til indhold</a>
@@ -58,6 +105,34 @@
               fetchpriority="high"
             />
           </figure>
+        </div>
+      </section>
+
+      <section class="section section-alt home-koncentrat" aria-labelledby="koncentrat-heading">
+        <div class="wrap">
+          <figure class="home-koncentrat-media">
+            <img
+              src="images/koncentrat.jpg"
+              alt="Koncentrat — collage med broderet mandala, hånd der tegner, jordede hænder og portræt af Dorte Wahlberg Feil"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+          <div class="home-koncentrat-text">
+            <p class="home-koncentrat-kicker">Nyt online forløb</p>
+            <h2 id="koncentrat-heading" class="home-section-title">Koncentrat</h2>
+            <p class="section-lead">
+              Din hverdags Craft-bouillonterning – et online forløb over 4 gange, der genstarter din
+              kreativitet og giver ro, nærvær og glæde.
+            </p>
+            <p class="home-koncentrat-meta">
+              Zoom · tirsdage kl. 11.00–12.00 · start 25. august 2026
+            </p>
+            <div class="home-koncentrat-cta">
+              <a class="btn btn-primary" href="koncentrat.html">Læs mere og tilmeld dig</a>
+              <a class="btn btn-secondary" href="kalender.html">Se alle events</a>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Koncentrat — et online forløb over 4 gange på Zoom, der genstarter din kreativitet og giver ro, nærvær og glæde. Start 25. august 2026. Early bird 400 kr."
+    />
+    <title>Koncentrat — online forløb i kreativ genstart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Koncentrat — små, side-specifikke justeringer der bygger på de eksisterende tokens */
+      .koncentrat-hero {
+        max-width: 800px;
+        margin: 0 0 1.75rem;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+      }
+      .koncentrat-hero img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .koncentrat-benefits {
+        list-style: none;
+        margin: 0.5rem 0 1.25rem;
+        padding: 0;
+        display: grid;
+        gap: 0.6rem;
+      }
+      .koncentrat-benefits li {
+        position: relative;
+        padding-left: 1.6rem;
+        color: var(--color-ink-muted);
+        line-height: 1.55;
+      }
+      .koncentrat-benefits li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.5em;
+        width: 0.55rem;
+        height: 0.55rem;
+        border-radius: 50%;
+        background: var(--color-accent);
+      }
+      .koncentrat-facts {
+        margin: 0.5rem 0 1.5rem;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 0.65rem;
+      }
+      .koncentrat-facts li {
+        display: grid;
+        grid-template-columns: 8.5rem 1fr;
+        gap: 0.5rem 1rem;
+        color: var(--color-ink-muted);
+        line-height: 1.55;
+      }
+      .koncentrat-facts .fact-label {
+        font-weight: 700;
+        color: var(--color-ink);
+      }
+      @media (max-width: 520px) {
+        .koncentrat-facts li {
+          grid-template-columns: 1fr;
+          gap: 0.1rem;
+        }
+      }
+      .koncentrat-cta {
+        margin-top: 1.75rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+      }
+      .koncentrat-earlybird {
+        display: inline-block;
+        margin-top: 0.25rem;
+        padding: 0.2rem 0.7rem;
+        border-radius: 999px;
+        background: var(--color-accent);
+        color: #fff;
+        font-family: var(--font-sans);
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Spring til indhold</a>
+
+    <div id="site-header-root"></div>
+
+    <main id="main" class="page-main">
+      <section class="section page-intro">
+        <div class="wrap">
+          <h1>Koncentrat</h1>
+          <p class="section-lead">
+            Din hverdags Craft-bouillonterning – et online forløb der giver ro og kreativitet.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <figure class="koncentrat-hero">
+            <img
+              src="images/koncentrat.jpg"
+              alt="Koncentrat — collage med broderet mandala, hånd der tegner, jordede hænder og portræt af Dorte Wahlberg Feil"
+              width="1200"
+              height="1310"
+              decoding="async"
+            />
+          </figure>
+
+          <article class="activity-card" id="koncentrat">
+            <h2 class="activity-title">Et online forløb – en kreativ genstart</h2>
+
+            <p>
+              Der bor en kreativ gnist i dig, som bare venter på at blive tændt. Måske har den ligget i
+              dvale. Måske er den overdøvet af stimulation fra de sociale medier. Måske er du træt af at
+              prøve alle mulige kurser og gode råd.
+            </p>
+            <p>
+              Med de rette redskaber kan du komme i gang med de kreative aktiviteter, du <em>egentlig</em>
+              gerne vil – og give dig selv en kreativ genstart. Hvor du mærker ro, glæde, koncentration,
+              nysgerrighed og håb.
+            </p>
+            <p>
+              Jeg afholder et online forløb – en slags koncentreret Craft-bouillonterning.
+              <strong>Koncentrat</strong> hedder det.
+            </p>
+            <p>
+              Over 4 gange har vi fokus på viden og redskaber, der kan hjælpe dig tilbage på sporet og få
+              genstartet din kreativitet. Forløbet er sanseligt og håndgribeligt: vi lægger ud med enkle
+              redskaber som blyant og papir, mærker bevægelsen i hånden og åndedrættet, og lader kroppen
+              guide opmærksomheden – i stedet for at tænke os til ro.
+            </p>
+
+            <h3 class="activity-sub">Det får du ud af forløbet</h3>
+            <ul class="koncentrat-benefits">
+              <li>Idéer og afprøvning af kreative aktiviteter, der passer til lige netop dig</li>
+              <li>En enkel pauserutine, du kan bruge i din hverdag</li>
+              <li>Ro og nærvær i kroppen</li>
+              <li>Følelsen af at være i kontakt med dig selv</li>
+            </ul>
+
+            <p>
+              Måske har du flere aktiviteter for at finde fred og ro. Måske er din håndarbejdspraksis
+              anderledes, end du tror. Og det kan være, du glemmer, at havearbejde, sammenlægning af tøj,
+              madlavning osv. <em>også</em> er Craft. På kurset får du enkle redskaber til at rette din
+              opmærksomhed mod det, du ønsker at rette den imod.
+            </p>
+
+            <h3 class="activity-sub">Er det noget for dig?</h3>
+            <p>
+              Det online format henvender sig især til dig, der er sygemeldt, let bliver overstimuleret,
+              ikke kan overskue fysisk fremmøde, er jobsøgende, eller som blot har arbejdstider, hvor det
+              passer godt at være med i dagtimerne.
+            </p>
+
+            <h3 class="activity-sub">Praktisk</h3>
+            <ul class="koncentrat-facts">
+              <li>
+                <span class="fact-label">Tid og sted</span>
+                <span>Zoom · tirsdage kl. 11.00–12.00</span>
+              </li>
+              <li>
+                <span class="fact-label">Datoer</span>
+                <span>25. august samt 1., 8. og 15. september 2026</span>
+              </li>
+              <li>
+                <span class="fact-label">Tilmeldingsfrist</span>
+                <span>Senest 20. august 2026 · early bird før 12. august</span>
+              </li>
+              <li>
+                <span class="fact-label">Pris</span>
+                <span>
+                  450 kr. for hele forløbet<br />
+                  <span class="koncentrat-earlybird">Early bird 400 kr. ved tilmelding før 12. august</span>
+                </span>
+              </li>
+            </ul>
+
+            <h3 class="activity-sub">Tilmelding</h3>
+            <p>
+              Tilmelding sker ved at skrive til
+              <a href="mailto:info@dortewahlberg.dk">info@dortewahlberg.dk</a>. Du får svar med
+              betalingsoplysninger, og din plads er først booket, når betalingen på 450 kr. er modtaget
+              (400 kr. ved early bird-tilmelding før 12. august).
+            </p>
+            <p>
+              Der er få pladser, og de går til dem, der betaler først. Sidste tilmeldingsfrist er
+              20. august 2026.
+            </p>
+            <p>
+              Du kan afmelde dig og få pengene tilbage indtil 7 dage før forløbet starter. Afmelder du
+              dig senere, kan jeg desværre ikke refundere, men du er velkommen til at rykke med over på
+              næste hold i stedet.
+            </p>
+            <div class="koncentrat-cta">
+              <a
+                class="btn btn-primary"
+                href="mailto:info@dortewahlberg.dk?subject=Tilmelding%20til%20Koncentrat&body=Hej%20Dorte%2C%0A%0AJeg%20vil%20gerne%20tilmelde%20mig%20Koncentrat%20(online%20forl%C3%B8b%2C%20start%2025.%20august).%0A%0ANavn%3A%0ATelefon%3A%0A"
+              >
+                Skriv og tilmeld dig
+              </a>
+              <a class="btn btn-secondary" href="kontakt.html">Har du et spørgsmål?</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <div id="site-footer-root"></div>
+
+    <script src="script.js" defer></script>
+    <script src="load-layout.js" defer></script>
+  </body>
+</html>
