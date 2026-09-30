@@ -1273,6 +1273,17 @@ a:hover {
   margin-bottom: 0;
 }
 
+.koncentrat-quote {
+  margin: 1.75rem 0;
+}
+
+.koncentrat-quote figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-accent-dark);
+}
+
 /* Om */
 
 .highlight-card {
