@@ -97,6 +97,7 @@ app.get("/", (req, res) => {
 const legacyRedirects = {
   "/aktiviteter-og-kurser-2": "/aktiviteter.html",
   "/kurser": "/",
+  "/kursus-craft-psykologi-november-2026.html": "/aktiviteter.html",
   "/at-komme-op-paa-sy-hesten-igen": "/at-komme-op-paa-sy-hesten-igen.html",
   "/hva-med-at-lappe-hjerne-og-toej-i-samme-hug": "/hva-med-at-lappe-hjerne-og-toej-i-samme-hug.html",
   "/indrestyret-kreativitet": "/indrestyret-kreativitet.html",

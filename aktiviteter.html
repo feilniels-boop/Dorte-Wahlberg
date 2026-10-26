@@ -60,14 +60,15 @@
         <div class="wrap">
 
           <nav class="tabs-nav" aria-label="Kurser">
-            <a href="#november" id="tab-november">21. november 2026</a>
+            <a href="#februar" id="tab-februar">13. februar 2027</a>
+            <a href="#juni" id="tab-juni">5. juni 2027</a>
           </nav>
 
-          <div class="tab-panel" id="november">
+          <div class="tab-panel" id="februar">
             <article class="activity-card">
               <h2 class="activity-title">1-dages kursus i Craft-psykologi</h2>
               <p class="activity-meta">
-                <strong>Fredag 21. november 2026</strong> · kl. 9.30 – 16.30<br />
+                <strong>Lørdag 13. februar 2027</strong> · kl. 9.30 – 16.30<br />
                 Fælleshuset Petersborg i Andelssamfundet, Gammel Kirkevej 116, 8530 Hjortshøj
               </p>
               <p>
@@ -110,10 +111,70 @@
                 <a href="mailto:ad@drachmann.eu">ad@drachmann.eu</a><br />
                 Pris: <strong>2350 kr.</strong> · Konto nr. <strong>8401 0001082066</strong>
               </p>
-              <p>Tilmelding senest 10. november — herefter er tilmeldingen bindende.</p>
+              <p>Tilmelding senest 6. februar 2027 — herefter er tilmeldingen bindende.</p>
               <p>Hvis du ønsker faktura, så skriv dette.</p>
               <p>
-                <strong>Early bird:</strong> 2200 kr. ved tilmelding inden 21. oktober 2026. Tilmelding
+                <strong>Early bird:</strong> 2200 kr. ved tilmelding inden 13. januar 2027. Tilmelding
+                senest herefter er tilmeldingen bindende. Hvis man ønsker faktura, så skriv dette.
+              </p>
+              <p>
+                Spørgsmål: Astrid <a href="tel:+4551418252">51 41 82 52</a> eller Dorte
+                <a href="tel:+4540199074">40 19 90 74</a>
+              </p>
+            </article>
+          </div>
+
+          <div class="tab-panel" id="juni">
+            <article class="activity-card">
+              <h2 class="activity-title">1-dages kursus i Craft-psykologi</h2>
+              <p class="activity-meta">
+                <strong>Lørdag 5. juni 2027</strong> · kl. 9.30 – 16.30<br />
+                Fælleshuset Petersborg i Andelssamfundet, Gammel Kirkevej 116, 8530 Hjortshøj
+              </p>
+              <p>
+                Med udgangspunkt i Anne Kirketerps forskningsbaserede teorier om Craft-psykologi og
+                sundhedsfremmende effekter inviterer vi dig til en lærerig dag i skønne Petersborg.
+              </p>
+              <p>
+                Du bliver introduceret til den grundlæggende teori bag Craft-psykologi og kommer til at
+                forstå hvorfor og hvordan håndværk og håndarbejde er sundt. Vi kobler teorien til praksis
+                og lader taktile processer udfolde sig, så du forstår med både hjerne og krop.
+              </p>
+              <p>
+                Du vil blive præsenteret for forskellige aktiviteter uden forkundskaber. Gennem
+                variationer over vikleprøver vil du mærke den effekt som teorierne giver. Workshoppen
+                giver dig redskaber til at variere og graduere din egen praksis og til at kunne
+                videreformidle dette.
+              </p>
+              <p>
+                Kurset udbydes i samarbejde med Anne Kirketerp —
+                <a href="http://www.craftpsykologi.dk/" rel="noopener noreferrer">www.craftpsykologi.dk</a>
+                — og du får et kursusbevis derfra.
+              </p>
+
+              <h3 class="activity-sub">Undervisere</h3>
+              <ul>
+                <li>
+                  <strong>Astrid Lykke Drachmann:</strong> Master Class i Craft-psykologi, lektor i
+                  ergoterapi, master i sundhedsantropologi
+                </li>
+                <li>
+                  <strong>Dorte Wahlberg Feil:</strong> Master Class i Craft-psykologi, psykomotorisk
+                  terapeut, master i vejledning
+                </li>
+              </ul>
+
+              <h3 class="activity-sub">Tilmelding</h3>
+              <p>Du er tilmeldt, når du har skrevet mail og overført penge.</p>
+              <p>
+                Mail til Astrid Drachmann:
+                <a href="mailto:ad@drachmann.eu">ad@drachmann.eu</a><br />
+                Pris: <strong>2350 kr.</strong> · Konto nr. <strong>8401 0001082066</strong>
+              </p>
+              <p>Tilmelding senest 28. maj 2027 — herefter er tilmeldingen bindende.</p>
+              <p>Hvis du ønsker faktura, så skriv dette.</p>
+              <p>
+                <strong>Early bird:</strong> 2200 kr. ved tilmelding inden 5. maj 2027. Tilmelding
                 senest herefter er tilmeldingen bindende. Hvis man ønsker faktura, så skriv dette.
               </p>
               <p>
@@ -133,9 +194,11 @@
     <script src="load-layout.js" defer></script>
     <script>
       function activateTab(hash) {
-        var tabs = ['november'];
+        var tabs = ['februar', 'juni'];
         var active = hash && hash.slice(1);
-        if (!tabs.includes(active)) active = 'november';
+        // Gammelt link (#november) peger nu på februar-kurset
+        if (active === 'november') active = 'februar';
+        if (!tabs.includes(active)) active = 'februar';
         tabs.forEach(function(id) {
           document.getElementById(id).classList.toggle('active', id === active);
           document.getElementById('tab-' + id).classList.toggle('active', id === active);
