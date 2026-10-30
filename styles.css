@@ -720,8 +720,17 @@ a:hover {
 }
 
 .partner-tile {
+  display: block;
   margin: 0;
   height: 100%;
+  text-decoration: none;
+  color: inherit;
+  border-radius: var(--radius-md);
+}
+
+.partner-tile:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
 }
 
 .partner-tile__frame {
@@ -738,9 +747,15 @@ a:hover {
   transition: border-color 0.2s ease, box-shadow 0.22s var(--ease-out);
 }
 
-.partner-tile:hover .partner-tile__frame {
+.partner-tile:hover .partner-tile__frame,
+.partner-tile:focus-visible .partner-tile__frame {
   border-color: rgba(92, 127, 106, 0.22);
   box-shadow: var(--shadow-sm);
+}
+
+.partner-tile:hover .partner-tile__caption,
+.partner-tile:focus-visible .partner-tile__caption {
+  color: var(--color-ink);
 }
 
 .partner-tile__caption {
